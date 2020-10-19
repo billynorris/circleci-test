@@ -1,23 +1,17 @@
 jobs:
-  build:
+  build_and_test:
     executor:
       name: node/default
       tag: '13.14'
     steps:
       - checkout
       - node/install-packages
-  test:
-    executor:
-      name: node/default
-      tag: '13.14'
-    steps:
       - run:
           command: npm run test
 orbs:
   node: circleci/node@4.1.0
 version: 2.1
 workflows:
-  test_app:
+  build_test:
     jobs:
-      - build
-      - test
+      - build_and_test
