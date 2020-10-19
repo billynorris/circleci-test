@@ -1,11 +1,16 @@
 jobs:
-  test:
+  build:
     executor:
       name: node/default
       tag: '13.14'
     steps:
       - checkout
       - node/install-packages
+  test:
+    executor:
+      name: node/default
+      tag: '13.14'
+    steps:
       - run:
           command: npm run test
 orbs:
