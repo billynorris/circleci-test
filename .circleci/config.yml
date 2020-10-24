@@ -15,25 +15,22 @@ jobs:
       - run:
           name: Build
           command: npm run build
-      - persist_to_workspace: 
-          root: ./
-          paths: 
-            - ./
+      - save_cache:
+        key: v1-{{ checksum "package.json" }}
+        paths:
+          - ./
   test:
     <<: *defaults
     steps:
-      - checkout
-      - run:
-          name: Install
-          command: npm install
+      - restore_cache:
+          key: v1-{{ checksum "package.json" }}
       - run:
           name: Test
           command: npm run test
   deploy:
     <<: *defaults
     steps:
-      - attach_workspace : 
-          at: ~/repo
+      - checkout
       - run:
           name: Node production
           command: npm install --production
@@ -46,3 +43,6 @@ workflows:
       - test:
           requires:
             - build
+      # - deploy:
+      #     requires:
+      #       - test
