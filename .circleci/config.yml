@@ -46,6 +46,7 @@ jobs:
             echo $PACKAGE_NAME
             echo $PACKAGE_VERSION
             mkdir -p ./artifacts
+            chmod -R 777 ./
             zip -r ./artifacts/${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
       - save_cache:
           key: v1-artifacts-{{ checksum "package.json" }}
