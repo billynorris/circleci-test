@@ -52,16 +52,16 @@ jobs:
             - ./artifacts
       - store_artifacts:
           path: ./artifacts
-  deploy:
-    <<: *aws-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-artifacts-{{ checksum "package.json" }}
-      - aws-s3/sync:
-          from: ./
-          to: $S3_BUCKET_NAME
+  # deploy:
+  #   <<: *aws-defaults
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #           - v1-artifacts-{{ checksum "package.json" }}
+  #     - aws-s3/sync:
+  #         from: ./
+  #         to: $S3_BUCKET_NAME
 
 workflows:
   version: 2
@@ -71,6 +71,6 @@ workflows:
       - package:
           requires:
             - build_test
-      - deploy:
-          requires:
-            - package
+      # - deploy:
+      #     requires:
+      #       - package
