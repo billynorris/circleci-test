@@ -29,9 +29,6 @@ jobs:
       tag: "13.14"
     steps:
       - checkout
-      - run:
-          name: Install ZIP
-          command: apt install -y zip
       - restore_cache:
           keys:
             - v1-bin-{{ checksum "package.json" }}
