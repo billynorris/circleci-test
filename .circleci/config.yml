@@ -22,11 +22,13 @@ jobs:
   test:
     <<: *defaults
     steps:
+      - checkout
       - restore_cache:
           key: v1-{{ checksum "package.json" }}
       - run:
           name: Test
           command: npm run test
+          
   deploy:
     <<: *defaults
     steps:
