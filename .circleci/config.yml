@@ -16,6 +16,8 @@ jobs:
           command: npm run build
       - save_cache:
           key: v1-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
   test:
     <<: *defaults
     steps:
