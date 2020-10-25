@@ -7,9 +7,7 @@ orbs:
 version: 2
 jobs:
   build_test:
-    executor:
-      name: node/default
-      tag: "13.14"
+    executor: node/docker
     steps:
       - checkout
       - run:
@@ -23,9 +21,7 @@ jobs:
           paths:
             - ./bin
   package:
-    executor:
-      name: node/default
-      tag: "13.14"
+    executor: node/docker
     steps:
       - checkout
       - run:
@@ -56,7 +52,7 @@ jobs:
       - store_artifacts:
           path: ./artifacts
   # deploy:
-  #   <<: *aws-defaults
+  #   <<: *aws-dockers
   #   steps:
   #     - checkout
   #     - restore_cache:
