@@ -29,6 +29,10 @@ jobs:
       tag: "13.14"
     steps:
       - checkout
+      - run:
+          name: Allow permissions
+          command: |
+            chmod -R 777 ./
       - restore_cache:
           keys:
             - v1-bin-{{ checksum "package.json" }}
@@ -46,7 +50,6 @@ jobs:
             echo $PACKAGE_NAME
             echo $PACKAGE_VERSION
             mkdir -p ./artifacts
-            chmod -R 777 ./
             zip -r ./artifacts/${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
       - save_cache:
           key: v1-artifacts-{{ checksum "package.json" }}
