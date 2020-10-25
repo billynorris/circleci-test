@@ -60,7 +60,7 @@ jobs:
       - restore_cache:
           keys:
             - v2-artifacts-{{ checksum "package.json" }}
-      - aws-s3/sync:
+      - sync:
           from: ./artifacts
           to: "$S3_BUCKET_NAME"
 
