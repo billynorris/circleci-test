@@ -4,13 +4,15 @@
 orbs:
   node: circleci/node@4.1.0
 
-version: 2
+version: 2.1
 jobs:
   build_test:
-    docker:
-      - image: circleci/node@4.1.0
+    executor:
+      name: node/default
+      tag: "13.14"
     steps:
       - checkout
+
       - run:
           name: Install
           command: npm install
@@ -22,8 +24,9 @@ jobs:
           paths:
             - ./bin
   package:
-    docker:
-      - image: circleci/node@4.1.0
+    executor:
+      name: node/default
+      tag: "13.14"
     steps:
       - checkout
       - run:
@@ -68,10 +71,8 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build_test:
-          version: 13.11.0
+      - build_test
       - package:
-          version: 13.11.0
           requires:
             - build_test
       # - deploy:
