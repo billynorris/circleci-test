@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Install ZIP
-          command: sudo apt install zip
+          command: apt install zip
       - restore_cache:
           keys:
             - v1-bin-{{ checksum "package.json" }}
