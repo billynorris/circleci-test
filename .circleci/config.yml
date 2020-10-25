@@ -22,7 +22,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run
+      - run:
           name: Install ZIP
           command: sudo apt install zip
       - restore_cache:
