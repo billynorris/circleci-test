@@ -39,6 +39,9 @@ jobs:
       - run:
           name: Create ZIP
           command: zip -r ${PACKAGE_VERSION}.${PACKAGE_NAME}.zip ./node_modules/* ./bin/* *.md package*.json
+      - store_artifacts:
+          path: ./${PACKAGE_VERSION}.${PACKAGE_NAME}.zip
+          destination: ${PACKAGE_VERSION}.${PACKAGE_NAME}.zip
   # deploy:
   #   <<: *defaults
   #   steps:
