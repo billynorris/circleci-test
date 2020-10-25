@@ -10,9 +10,9 @@ jobs:
     executor:
       name: node/default
       tag: "13.14"
+    working_directory: ~/repo
     steps:
       - checkout
-
       - run:
           name: Install
           command: npm install
@@ -27,12 +27,9 @@ jobs:
     executor:
       name: node/default
       tag: "13.14"
+    working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Allow permissions
-          command: |
-            chmod -R 777 ./
       - restore_cache:
           keys:
             - v1-bin-{{ checksum "package.json" }}
