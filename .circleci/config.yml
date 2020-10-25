@@ -4,7 +4,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  build:
+  build_test:
     <<: *defaults
     steps:
       - checkout
@@ -15,23 +15,16 @@ jobs:
           name: Build
           command: npm run build
       - save_cache:
-          key: v1-{{ checksum "package.json" }}
+          key: v1-bin-{{ checksum "package.json" }}
           paths:
-            - ./node_modules
-  test:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-{{ checksum "package.json" }}
-      - run:
-          name: Test
-          command: npm run test
-          
+            - ./bin
   package:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-bin-{{ checksum "package.json" }}
       - run:
           name: Set Environment Variables
           command: |
@@ -40,9 +33,6 @@ jobs:
       - run:
           name: Install Packages
           command: npm install --production
-      - run:
-          name: Build
-          command: npm run build
       - run:
           name: Create ZIP
           command: zip -r ${PACKAGE_VERSION}.${PACKAGE_NAME}.zip ./node_modules/* ./bin/* *.md package*.json
@@ -58,13 +48,10 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_test
       - package:
           requires:
-            - test
+            - build_test
       # - deploy:
       #     requires:
       #       - test
