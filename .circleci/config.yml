@@ -31,17 +31,20 @@ jobs:
       - run:
           name: Set Environment Variables
           command: |
-            export PACKAGE_VERSION=$(cat package.json | jq -r '.version')
-            export PACKAGE_NAME=$(cat package.json | jq -r '.name')
+            echo "export PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $BASH_ENV
+            echo "export PACKAGE_NAME=$(cat package.json | jq -r '.name')" >> $BASH_ENV
       - run:
           name: Install Packages
           command: npm install --production
       - run:
           name: Create ZIP
-          command: zip -r ${PACKAGE_VERSION}.${PACKAGE_NAME}.zip ./node_modules/* ./bin/* *.md package*.json
+          command: |
+            echo $PACKAGE_NAME
+            echo $PACKAGE_VERSION
+            zip -r ${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
       - store_artifacts:
-          path: ./${PACKAGE_VERSION}.${PACKAGE_NAME}.zip
-          destination: ${PACKAGE_VERSION}.${PACKAGE_NAME}.zip
+          path: ./${PACKAGE_NAME}.${PACKAGE_VERSION}.zip
+          destination: build_artifact.zip
   # deploy:
   #   <<: *defaults
   #   steps:
