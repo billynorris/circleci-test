@@ -7,8 +7,7 @@ orbs:
 version: 2
 jobs:
   build_test:
-    docker:
-      - image: circleci/node@4.1.0
+    executor: node/default
     steps:
       - checkout
       - run:
@@ -22,8 +21,7 @@ jobs:
           paths:
             - ./bin
   package:
-    docker:
-      - image: circleci/node@4.1.0
+    executor: node/default
     steps:
       - checkout
       - run:
