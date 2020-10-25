@@ -41,10 +41,15 @@ jobs:
           command: |
             echo $PACKAGE_NAME
             echo $PACKAGE_VERSION
-            zip -r ${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
+            zip -r build_artifact.zip ./node_modules/* ./bin/* *.md package*.json
+            echo "build_artifact.zip ${PACKAGE_NAME}.${PACKAGE_VERSION}.zip" >> instructions.txt
       - store_artifacts:
           path: ./${PACKAGE_NAME}.${PACKAGE_VERSION}.zip
           destination: build_artifact.zip
+      - store_artifacts:
+          path: ./instructions.txt
+          destination: instructions.txt
+
   # deploy:
   #   <<: *defaults
   #   steps:
