@@ -61,7 +61,7 @@ jobs:
             - v1-artifacts-{{ checksum "package.json" }}
       - aws-s3/sync:
           from: ./
-          to: "${S3_BUCKET_NAME}"
+          to: $S3_BUCKET_NAME
 
 workflows:
   version: 2
