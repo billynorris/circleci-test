@@ -68,8 +68,10 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build_test
+      - build_test:
+          version: 13.11.0
       - package:
+          version: 13.11.0
           requires:
             - build_test
       # - deploy:
