@@ -1,5 +1,6 @@
 orbs:
   node: circleci/node@4.1.0
+  aws-s3: circleci/aws-s3@2.0.0
 
 version: 2.1
 jobs:
@@ -53,16 +54,16 @@ jobs:
           path: ./artifacts
   deploy:
     docker:
-      - image: circleci/aws-s3@2.0.0
+      - image: cimg/python:3.6
     working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
           keys:
             - v2-artifacts-{{ checksum "package.json" }}
-      - sync:
+      - aws-s3/sync:
           from: ./artifacts
-          to: "$S3_BUCKET_NAME"
+          to: $S3_BUCKET_NAME
 
 workflows:
   version: 2
