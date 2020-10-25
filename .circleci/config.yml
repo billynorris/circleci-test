@@ -7,7 +7,9 @@ orbs:
 version: 2
 jobs:
   build_test:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: "13.14"
     steps:
       - checkout
       - run:
@@ -21,7 +23,9 @@ jobs:
           paths:
             - ./bin
   package:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: "13.14"
     steps:
       - checkout
       - run:
