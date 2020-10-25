@@ -1,14 +1,11 @@
-node-defaults: &node-defaults
-  docker:
-    - image: circleci/node@4.1.0
-aws-defaults: &aws-defaults
-  docker:
-    - image: circleci/aws-s3@2.0.0
+# docker:
+#   - image: circleci/aws-s3@2.0.0
 
 version: 2
 jobs:
   build_test:
-    <<: *node-defaults
+    docker:
+      - image: circleci/node@4.1.0
     steps:
       - checkout
       - run:
@@ -22,7 +19,8 @@ jobs:
           paths:
             - ./bin
   package:
-    <<: *node-defaults
+    docker:
+      - image: circleci/node@4.1.0
     steps:
       - checkout
       - run:
