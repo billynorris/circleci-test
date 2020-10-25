@@ -18,7 +18,7 @@ jobs:
           name: Build
           command: npm run build
       - save_cache:
-          key: v2-bin-{{ checksum "package.json" }}
+          key: v1-bin-{{ checksum "package.json" }}
           paths:
             - ./bin
   package:
@@ -30,7 +30,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-bin-{{ checksum "package.json" }}
+            - v1-bin-{{ checksum "package.json" }}
       - run:
           name: Set Environment Variables
           command: |
@@ -47,7 +47,7 @@ jobs:
             mkdir -p ./artifacts
             zip -r ./artifacts/${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
       - save_cache:
-          key: v2-artifacts-{{ checksum "package.json" }}
+          key: v1-artifacts-{{ checksum "package.json" }}
           paths:
             - ./artifacts
       - store_artifacts:
@@ -60,7 +60,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-artifacts-{{ checksum "package.json" }}
+            - v1-artifacts-{{ checksum "package.json" }}
       - aws-s3/sync:
           from: ./artifacts
           to: $S3_BUCKET_NAME

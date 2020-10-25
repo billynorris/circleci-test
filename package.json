@@ -1,6 +1,6 @@
 {
   "name": "circleci-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "description 1",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",

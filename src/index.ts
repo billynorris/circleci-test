@@ -21,4 +21,4 @@ const __handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult>
     }
 }
 
-export { __handler }
+export { __handler, __handler as handler }
