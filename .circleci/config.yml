@@ -39,7 +39,7 @@ jobs:
           fingerprints:
             - "8d:8f:1e:90:52:94:f8:18:6e:6e:1f:32:93:79:97:7f"
       - run:
-          name: Update package version
+          name: Update package patch version
           command: |
             git config --global user.email "circle_ci@billynorris.co.uk"
             git config --global user.name "CircleCiUser"
@@ -68,6 +68,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run:
+          name: Update package patch version
+          command: |
+            npm version patch
       - restore_cache:
           keys:
             - v1-artifacts-{{ checksum "package.json" }}
