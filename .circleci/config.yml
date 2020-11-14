@@ -41,11 +41,9 @@ jobs:
       - run:
           name: Update package version
           command: |
-            npm version minor
+            npm version patch -m "Update version [skip ci]" --git-tag-version
             echo "export PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $BASH_ENV
             echo "export PACKAGE_NAME=$(cat package.json | jq -r '.name')" >> $BASH_ENV
-            git commit -am 'Updated Package version $PACKAGE_VERSION [skip ci]'
-            git push
       - run:
           name: Install Packages
           command: npm install --production
