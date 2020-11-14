@@ -1,7 +1,7 @@
 {
   "name": "circleci-test",
   "version": "1.0.2",
-  "description": "description 1",
+  "description": "description changed",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
   "scripts": {
