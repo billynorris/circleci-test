@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.__handler = void 0;
+exports.handler = exports.__handler = void 0;
 const __handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     if (((_a = event === null || event === void 0 ? void 0 : event.queryStringParameters) === null || _a === void 0 ? void 0 : _a.message) === undefined) {
@@ -29,4 +29,5 @@ const __handler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 exports.__handler = __handler;
+exports.handler = __handler;
 //# sourceMappingURL=index.js.map
