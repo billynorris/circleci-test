@@ -44,6 +44,7 @@ jobs:
             git config --global user.email "circle_ci@billynorris.co.uk"
             git config --global user.name "CircleCiUser"
             npm version patch -m "Update version [skip ci]" --git-tag-version
+            echo "export PACKAGE_CACHE_KEY=$(cat package.json | jq -r '[.name, .version] | join("-")'" >> $BASH_ENV
             echo "export PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $BASH_ENV
             echo "export PACKAGE_NAME=$(cat package.json | jq -r '.name')" >> $BASH_ENV
       - run:
@@ -52,12 +53,10 @@ jobs:
       - run:
           name: Create ZIP
           command: |
-            echo $PACKAGE_NAME
-            echo $PACKAGE_VERSION
             mkdir -p ./artifacts
             zip -r ./artifacts/${PACKAGE_NAME}.${PACKAGE_VERSION}.zip ./node_modules/* ./bin/* *.md package*.json
       - save_cache:
-          key: v1-artifacts-{{ checksum "package.json" }}
+          key: v1-artifacts-{{ .Environment.PACKAGE_CACHE_KEY }}
           paths:
             - ./artifacts
       - store_artifacts:
@@ -68,13 +67,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Update package patch version
-          command: |
-            npm version patch
       - restore_cache:
           keys:
-            - v1-artifacts-{{ checksum "package.json" }}
+            - v1-artifacts-{{ .Environment.PACKAGE_CACHE_KEY }}
       - aws-s3/sync:
           from: ./artifacts
           to: $S3_BUCKET_NAME
