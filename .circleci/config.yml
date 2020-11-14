@@ -44,7 +44,7 @@ jobs:
             git config --global user.email "circle_ci@billynorris.co.uk"
             git config --global user.name "CircleCiUser"
             npm version patch -m "Update version [skip ci]" --git-tag-version
-            echo "export PACKAGE_CACHE_KEY=$(cat package.json | jq -r '[.name, .version] | join("-")'" >> $BASH_ENV
+            echo "export PACKAGE_CACHE_KEY=$(cat package.json | jq -r '[.name, .version] | join("-")')" >> $BASH_ENV
             echo "export PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $BASH_ENV
             echo "export PACKAGE_NAME=$(cat package.json | jq -r '.name')" >> $BASH_ENV
       - run:
